@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>GeoMixer API editing tools testing</title>
+
+    <style type="text/css">
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script src="http://maps.kosmosnimki.ru/api/api.js?key=8B4A5528E7734C0B10392BA11E7359A7" charset="windows-1251"></script>
+    
+    <script src="../geometry_generator.js"></script>
+    
+    <script type="text/javascript">
+        function init(){
+            createFlashMap(document.getElementById("map"),  function(map)
+            {
+                map.moveTo(37, 55, 7);
+                
+                var points = generateGeometry(function(x, y) {
+                    return [x, y];
+                })
+                
+                map.drawing.addObject({type: 'POLYGON', coordinates: [points]});
+            });
+        }
+    </script>
+  </head>
+  <body onload="init()">
+    <div id="map"></div>
+  </body>
+</html>

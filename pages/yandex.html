@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Yandex Maps API editing tools testing</title>
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=en-US" type="text/javascript"></script>
+    
+    <script src="../geometry_generator.js"></script>
+    
+    <style type="text/css">
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>    
+
+<script type="text/javascript">
+
+ymaps.ready(init);
+
+function init() {
+    var myMap = new ymaps.Map("map", {
+        center: [55, 37],
+        zoom: 7
+    });
+    
+    myMap.controls.add('zoomControl');
+    
+    var points = generateGeometry(function(x, y) {
+        return [y, x];
+    })
+    
+    var myPolygon = new ymaps.Polygon([points]);
+    myMap.geoObjects.add(myPolygon);
+
+    myPolygon.editor.startDrawing();
+}
+
+</script>
+</head>
+
+<body>
+    <div id="map"></div>
+</body>
+
+</html>
